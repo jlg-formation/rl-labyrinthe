@@ -23,7 +23,7 @@ export function generateMaze(width: number, height: number): Maze {
   const size = useAdvancedSettings.getState().mazeSize;
 
   const maze: CellType[][] = Array.from({ length: size }, () =>
-    Array.from({ length: size }, () => "wall")
+    Array.from({ length: size }, () => "wall"),
   );
 
   // Point de départ (coordonnées impaires)

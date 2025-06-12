@@ -77,7 +77,7 @@ jobs:
 Ajoute dans `vite.config.ts` :
 
 ```ts
-base: "/nom-du-repo/"
+base: "/nom-du-repo/";
 ```
 
 Et dans `package.json` :
@@ -92,6 +92,7 @@ Tous les commits doivent respecter la convention :
 **type(scope): message**
 
 Exemples :
+
 - `feat(agent): ajout du Q-learning`
 - `fix(ui): résolution d’un bug d’affichage`
 - `chore(deploy): ajout du workflow GitHub Pages`

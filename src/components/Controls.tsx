@@ -41,33 +41,33 @@ export const Controls: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 items-center justify-center my-4">
+    <div className="my-4 flex flex-wrap items-center justify-center gap-2">
       <button
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         onClick={toggleLearning}
       >
         {isLearning ? "⏸️ Pause" : "▶️ Démarrer"}
       </button>
 
       <button
-        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        className="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
         onClick={handleStep}
       >
         🐾 Pas à pas
       </button>
 
       <button
-        className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+        className="rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
         onClick={handleReset}
       >
         🔄 Nouveau labyrinthe
       </button>
-      <div className="text-sm text-gray-600 text-center mt-2">
+      <div className="mt-2 text-center text-sm text-gray-600">
         Épisodes terminés :{" "}
         <span className="font-semibold">{episodeCount}</span>
       </div>
 
-      <div className="flex items-center gap-2 mt-4 text-sm">
+      <div className="mt-4 flex items-center gap-2 text-sm">
         <input
           type="checkbox"
           checked={stopAtGoal}

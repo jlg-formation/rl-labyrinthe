@@ -30,8 +30,8 @@ export default function Advanced() {
   };
 
   return (
-    <div className="p-4 max-w-screen-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Paramètres avancés</h1>
+    <div className="mx-auto max-w-screen-md p-4">
+      <h1 className="mb-6 text-2xl font-bold">Paramètres avancés</h1>
 
       <div className="grid gap-4">
         <Field
@@ -60,11 +60,11 @@ export default function Advanced() {
         />
 
         <div>
-          <label className="block font-medium mb-1">
+          <label className="mb-1 block font-medium">
             Mode de décroissance de ε
           </label>
           <select
-            className="border p-2 rounded w-full"
+            className="w-full rounded border p-2"
             value={local.epsilonDecay}
             onChange={(e) => handleChange("epsilonDecay", e.target.value)}
           >
@@ -115,16 +115,16 @@ export default function Advanced() {
           onChange={(v) => handleChange("mazeSize", v)}
         />
 
-        <div className="flex gap-4 mt-6">
+        <div className="mt-6 flex gap-4">
           <button
             onClick={handleApply}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
           >
             ✅ Appliquer
           </button>
           <button
             onClick={handleReset}
-            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+            className="rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
           >
             🔄 Réinitialiser
           </button>
@@ -145,7 +145,7 @@ type FieldProps = {
 
 const Field = ({ label, value, min, max, step, onChange }: FieldProps) => (
   <div>
-    <label className="block font-medium mb-1">{label}</label>
+    <label className="mb-1 block font-medium">{label}</label>
     <div className="flex items-center gap-4">
       <input
         type="range"
@@ -163,7 +163,7 @@ const Field = ({ label, value, min, max, step, onChange }: FieldProps) => (
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-20 border p-1 rounded"
+        className="w-20 rounded border p-1"
       />
     </div>
   </div>

@@ -22,7 +22,7 @@ export const Maze: React.FC = () => {
   const height = maze.length;
 
   return (
-    <div className="relative overflow-auto border border-gray-300 rounded shadow p-2 bg-white">
+    <div className="relative overflow-auto rounded border border-gray-300 bg-white p-2 shadow">
       <svg
         width={width * CELL_SIZE}
         height={height * CELL_SIZE}
@@ -45,7 +45,7 @@ export const Maze: React.FC = () => {
                 className="cursor-pointer"
               />
             );
-          })
+          }),
         )}
       </svg>
 

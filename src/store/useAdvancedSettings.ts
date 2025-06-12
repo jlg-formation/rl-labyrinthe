@@ -15,7 +15,7 @@ interface AdvancedSettings {
 
   set: <K extends keyof AdvancedSettings>(
     key: K,
-    value: AdvancedSettings[K]
+    value: AdvancedSettings[K],
   ) => void;
   reset: () => void;
   loadFromSession: () => void;

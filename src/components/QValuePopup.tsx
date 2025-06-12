@@ -36,7 +36,7 @@ export const QValuePopup: React.FC<Props> = ({ x, y, onClose }) => {
       val > values[best as keyof typeof values]
         ? (dir as keyof typeof values)
         : best,
-    "up" as keyof typeof values
+    "up" as keyof typeof values,
   );
 
   const arrowSymbols: Record<keyof typeof values, string> = {
@@ -47,8 +47,8 @@ export const QValuePopup: React.FC<Props> = ({ x, y, onClose }) => {
   };
 
   return (
-    <div className="absolute z-50 bg-white border shadow-lg rounded p-4 text-sm min-w-[120px]">
-      <h2 className="font-semibold mb-2">
+    <div className="absolute z-50 min-w-[120px] rounded border bg-white p-4 text-sm shadow-lg">
+      <h2 className="mb-2 font-semibold">
         Q-values ({x}, {y})
       </h2>
       <div className="grid grid-cols-3 gap-1 text-center text-xs">

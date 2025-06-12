@@ -57,7 +57,7 @@ export function doQLearningStep() {
       : actions.reduce(
           (best, a) =>
             getQValue(state, a) > getQValue(state, best) ? a : best,
-          actions[0]
+          actions[0],
         );
 
   const [dx, dy] = directions[action];
