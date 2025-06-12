@@ -1,6 +1,6 @@
 export default function Doc() {
   return (
-    <div className="prose max-w-screen-md mx-auto p-6 bg-white rounded shadow">
+    <div className="prose mx-auto max-w-screen-md rounded bg-white p-6 shadow">
       <h1>Documentation du TP</h1>
       <p>
         Ce TP permet d’explorer l’apprentissage par renforcement via le

@@ -8,7 +8,7 @@ const basename = import.meta.env.BASE_URL;
 export default function App() {
   return (
     <Router basename={basename}>
-      <nav className="bg-white shadow p-4 flex gap-4 text-blue-700 font-medium">
+      <nav className="flex gap-4 bg-white p-4 font-medium text-blue-700 shadow">
         <Link to="/" className="hover:underline">
           Accueil
         </Link>
