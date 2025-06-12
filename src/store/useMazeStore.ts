@@ -25,6 +25,9 @@ interface MazeStore {
   setQValue: (pos: Position, dir: Direction, value: number) => void;
   getQValue: (pos: Position, dir: Direction) => number;
   toggleLearning: () => void;
+
+  stopAtGoal: boolean;
+  setStopAtGoal: (val: boolean) => void;
 }
 
 export const useMazeStore = create<MazeStore>((set, get) => ({
@@ -54,4 +57,7 @@ export const useMazeStore = create<MazeStore>((set, get) => ({
     const key = `${pos.x},${pos.y}`;
     return get().qTable[key]?.[dir] ?? 0;
   },
+
+  stopAtGoal: true,
+  setStopAtGoal: (val) => set({ stopAtGoal: val }),
 }));

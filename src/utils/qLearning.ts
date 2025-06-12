@@ -34,8 +34,17 @@ function getReward(cell: string): number {
  * Un pas de Q-learning sur l’état courant.
  */
 export function doQLearningStep() {
-  const { maze, agentPos, setAgentPos, getQValue, setQValue, goalPos } =
-    useMazeStore.getState();
+  const {
+    maze,
+    agentPos,
+    setAgentPos,
+    getQValue,
+    setQValue,
+    goalPos,
+    isLearning,
+    toggleLearning,
+    stopAtGoal,
+  } = useMazeStore.getState();
 
   const state = agentPos;
   const actions: Direction[] = ["up", "down", "left", "right"];
@@ -71,4 +80,15 @@ export function doQLearningStep() {
 
   // 4. Réduction progressive de epsilon (exploration diminue)
   epsilon = Math.max(0.01, epsilon * 0.995);
+
+  if (
+    valid &&
+    stopAtGoal &&
+    nextPos.x === goalPos.x &&
+    nextPos.y === goalPos.y &&
+    isLearning
+  ) {
+    toggleLearning();
+    console.log("🎯 Sortie atteinte, apprentissage arrêté.");
+  }
 }

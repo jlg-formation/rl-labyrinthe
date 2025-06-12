@@ -13,6 +13,8 @@ export const Controls: React.FC = () => {
     setGoalPos,
   } = useMazeStore();
 
+  const { stopAtGoal, setStopAtGoal } = useMazeStore();
+
   const handleReset = () => {
     const newMaze = generateMaze(size, size);
     setMaze(newMaze);
@@ -54,6 +56,16 @@ export const Controls: React.FC = () => {
       >
         🔄 Nouveau labyrinthe
       </button>
+
+      <div className="flex items-center gap-2 mt-4 text-sm">
+        <input
+          type="checkbox"
+          checked={stopAtGoal}
+          onChange={(e) => setStopAtGoal(e.target.checked)}
+          id="auto-stop"
+        />
+        <label htmlFor="auto-stop">Arrêt automatique à la sortie</label>
+      </div>
     </div>
   );
 };
