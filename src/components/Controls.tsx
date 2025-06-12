@@ -1,5 +1,6 @@
 import { useMazeStore } from "../store/useMazeStore";
 import { generateMaze } from "../utils/mazeGenerator";
+import { doQLearningStep } from "../utils/qLearning";
 
 export const Controls: React.FC = () => {
   const {
@@ -28,8 +29,7 @@ export const Controls: React.FC = () => {
   };
 
   const handleStep = () => {
-    // À implémenter : une étape de Q-learning
-    console.log("Un pas d’apprentissage");
+    doQLearningStep();
   };
 
   return (

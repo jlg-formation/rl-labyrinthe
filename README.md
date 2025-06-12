@@ -1,54 +1,103 @@
-# React + TypeScript + Vite
+# 🧠 Q-Learning Maze – TP React + TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ce projet est un **TP pédagogique** sur l’**apprentissage par renforcement**. Un agent apprend à **sortir d’un labyrinthe** généré aléatoirement, en utilisant l’algorithme **Q-learning**.
 
-Currently, two official plugins are available:
+## 🚀 Stack technique
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ⚛️ React + Vite
+- 🧠 Zustand pour le store global
+- 🎨 TailwindCSS (responsive, min. 320px)
+- 🧩 SVG pour la visualisation du labyrinthe
+- 🔧 TypeScript pour la robustesse
+- 🛠️ Git + Conventional Commits
+- ☁️ Déploiement GitHub Pages via GitHub Actions
+- 📦 Gestionnaire : `pnpm`
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🧪 Lancer en local
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+pnpm run dev
 ```
+
+## 🛠️ Scripts utiles
+
+- `pnpm run dev` — démarre le serveur local
+- `pnpm run build` — build de production
+- `pnpm run preview` — prévisualisation du build
+
+## 🔍 Fonctionnalités principales
+
+- Labyrinthe parfait généré dynamiquement (DFS)
+- Taille paramétrable
+- Agent avec déplacement haut/bas/gauche/droite
+- Apprentissage par Q-learning (ε-greedy)
+- Contrôles :
+  - Démarrer / Pause
+  - Pas à pas
+  - Reset labyrinthe
+- Affichage dynamique :
+  - grille SVG
+  - Q-values au clic
+  - flèches de politique optimale
+
+## 🚀 Déploiement GitHub Pages
+
+Crée un fichier `.github/workflows/deploy.yml` avec le contenu suivant :
+
+```yaml
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install
+      - run: pnpm run build
+      - uses: actions/configure-pages@v3
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v2
+```
+
+Ajoute dans `vite.config.ts` :
+
+```ts
+base: "/nom-du-repo/"
+```
+
+Et dans `package.json` :
+
+```json
+"homepage": "https://ton-utilisateur.github.io/nom-du-repo/"
+```
+
+## 🧾 Conventions de commit
+
+Tous les commits doivent respecter la convention :  
+**type(scope): message**
+
+Exemples :
+- `feat(agent): ajout du Q-learning`
+- `fix(ui): résolution d’un bug d’affichage`
+- `chore(deploy): ajout du workflow GitHub Pages`
+
+---
+
+## 📜 Licence
+
+Projet open source à vocation pédagogique.

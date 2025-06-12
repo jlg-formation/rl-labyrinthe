@@ -1,0 +1,74 @@
+import { useMazeStore } from "../store/useMazeStore";
+
+type Direction = "up" | "down" | "left" | "right";
+type Position = { x: number; y: number };
+
+const directions: Record<Direction, [number, number]> = {
+  up: [0, -1],
+  down: [0, 1],
+  left: [-1, 0],
+  right: [1, 0],
+};
+
+const alpha = 0.1; // learning rate
+const gamma = 0.95; // discount factor
+let epsilon = 0.2; // exploration factor
+
+function isValidMove(maze: string[][], x: number, y: number): boolean {
+  return (
+    y >= 0 &&
+    y < maze.length &&
+    x >= 0 &&
+    x < maze[0].length &&
+    maze[y][x] !== "wall"
+  );
+}
+
+function getReward(cell: string): number {
+  if (cell === "goal") return 100;
+  if (cell === "wall") return -10;
+  return -1;
+}
+
+/**
+ * Un pas de Q-learning sur l’état courant.
+ */
+export function doQLearningStep() {
+  const { maze, agentPos, setAgentPos, getQValue, setQValue, goalPos } =
+    useMazeStore.getState();
+
+  const state = agentPos;
+  const actions: Direction[] = ["up", "down", "left", "right"];
+
+  // 1. Choix de l’action (ε-greedy)
+  const action =
+    Math.random() < epsilon
+      ? actions[Math.floor(Math.random() * actions.length)]
+      : actions.reduce(
+          (best, a) =>
+            getQValue(state, a) > getQValue(state, best) ? a : best,
+          actions[0]
+        );
+
+  const [dx, dy] = directions[action];
+  const newX = state.x + dx;
+  const newY = state.y + dy;
+
+  const nextPos: Position = { x: newX, y: newY };
+  const valid = isValidMove(maze, newX, newY);
+  const nextCell = valid ? maze[newY][newX] : "wall";
+  const reward = getReward(nextCell);
+
+  // 2. Mise à jour de Q(s, a)
+  const nextState = valid ? nextPos : state;
+  const maxNextQ = Math.max(...actions.map((a) => getQValue(nextState, a)));
+  const oldQ = getQValue(state, action);
+  const newQ = oldQ + alpha * (reward + gamma * maxNextQ - oldQ);
+  setQValue(state, action, newQ);
+
+  // 3. Mise à jour de l’état si déplacement valide
+  if (valid) setAgentPos(nextPos);
+
+  // 4. Réduction progressive de epsilon (exploration diminue)
+  epsilon = Math.max(0.01, epsilon * 0.995);
+}
