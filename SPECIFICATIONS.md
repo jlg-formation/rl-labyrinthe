@@ -23,7 +23,8 @@
 
 ## ⚙️ Fonctionnalités principales
 
-- Labyrinthe généré aléatoirement via un algorithme de génération de labyrinthe parfait (ex : DFS)
+- Labyrinthe généré aléatoirement via un algorithme de génération de labyrinthe
+  parfait (ex : DFS)
 - Taille du labyrinthe paramétrable
 - Interface d’apprentissage déclenchable :
   - par bouton “Démarrer l’apprentissage”
@@ -81,5 +82,6 @@
 
 ## 📏 Contraintes techniques
 
-- L’ensemble de l’interface doit être utilisable sur un écran de **320px de largeur minimum**
+- L’ensemble de l’interface doit être utilisable sur un écran de **320px de
+  largeur minimum**
 - Le code sera **modulaire, typé**, et documenté

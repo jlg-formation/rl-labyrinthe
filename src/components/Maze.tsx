@@ -29,27 +29,27 @@ export const Maze: React.FC = () => {
           height={height * CELL_SIZE}
           className="block"
         >
-        {maze.map((row, y) =>
-          row.map((cell, x) => {
-            const isAgent = agentPos.x === x && agentPos.y === y;
-            return (
-              <rect
-                key={`${x}-${y}`}
-                x={x * CELL_SIZE}
-                y={y * CELL_SIZE}
-                width={CELL_SIZE}
-                height={CELL_SIZE}
-                fill={isAgent ? "#3b82f6" : cellColors[cell]}
-                stroke="#ccc"
-                strokeWidth={1}
-                onClick={() => setSelectedCell({ x, y })}
-                className="cursor-pointer"
-              />
-            );
-          }),
-        )}
-      </svg>
-    </div>
+          {maze.map((row, y) =>
+            row.map((cell, x) => {
+              const isAgent = agentPos.x === x && agentPos.y === y;
+              return (
+                <rect
+                  key={`${x}-${y}`}
+                  x={x * CELL_SIZE}
+                  y={y * CELL_SIZE}
+                  width={CELL_SIZE}
+                  height={CELL_SIZE}
+                  fill={isAgent ? "#3b82f6" : cellColors[cell]}
+                  stroke="#ccc"
+                  strokeWidth={1}
+                  onClick={() => setSelectedCell({ x, y })}
+                  className="cursor-pointer"
+                />
+              );
+            }),
+          )}
+        </svg>
+      </div>
       <div className="mt-4">
         {selectedCell ? (
           <QValuePanel x={selectedCell.x} y={selectedCell.y} />

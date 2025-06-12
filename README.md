@@ -1,6 +1,8 @@
 # 🧠 Q-Learning Maze – TP React + TypeScript
 
-Ce projet est un **TP pédagogique** sur l’**apprentissage par renforcement**. Un agent apprend à **sortir d’un labyrinthe** généré aléatoirement, en utilisant l’algorithme **Q-learning**.
+Ce projet est un **TP pédagogique** sur l’**apprentissage par renforcement**. Un
+agent apprend à **sortir d’un labyrinthe** généré aléatoirement, en utilisant
+l’algorithme **Q-learning**.
 
 ## 🚀 Stack technique
 

@@ -43,21 +43,21 @@ export const Controls: React.FC = () => {
   return (
     <div className="my-4 flex flex-wrap items-center justify-center gap-2">
       <button
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
+        className="cursor-pointer rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
         onClick={toggleLearning}
       >
         {isLearning ? "⏸️ Pause" : "▶️ Démarrer"}
       </button>
 
       <button
-        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer"
+        className="cursor-pointer rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
         onClick={handleStep}
       >
         🐾 Pas à pas
       </button>
 
       <button
-        className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
+        className="cursor-pointer rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
         onClick={handleReset}
       >
         🔄 Nouveau labyrinthe
