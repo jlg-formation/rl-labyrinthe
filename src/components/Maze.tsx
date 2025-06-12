@@ -1,5 +1,5 @@
 import { useMazeStore } from "../store/useMazeStore";
-import { QValuePopup } from "./QValuePopup";
+import { QValuePanel } from "./QValuePanel";
 import React, { useState } from "react";
 
 const cellColors: Record<string, string> = {
@@ -22,12 +22,13 @@ export const Maze: React.FC = () => {
   const height = maze.length;
 
   return (
-    <div className="relative overflow-auto rounded border border-gray-300 bg-white p-2 shadow">
-      <svg
-        width={width * CELL_SIZE}
-        height={height * CELL_SIZE}
-        className="block"
-      >
+    <div>
+      <div className="relative overflow-auto rounded border border-gray-300 bg-white p-2 shadow">
+        <svg
+          width={width * CELL_SIZE}
+          height={height * CELL_SIZE}
+          className="block"
+        >
         {maze.map((row, y) =>
           row.map((cell, x) => {
             const isAgent = agentPos.x === x && agentPos.y === y;
@@ -48,23 +49,16 @@ export const Maze: React.FC = () => {
           }),
         )}
       </svg>
-
-      {/* Popup des Q-values */}
-      {selectedCell && (
-        <div
-          className="absolute"
-          style={{
-            left: selectedCell.x * CELL_SIZE,
-            top: selectedCell.y * CELL_SIZE,
-          }}
-        >
-          <QValuePopup
-            x={selectedCell.x}
-            y={selectedCell.y}
-            onClose={() => setSelectedCell(null)}
-          />
-        </div>
-      )}
+    </div>
+      <div className="mt-4">
+        {selectedCell ? (
+          <QValuePanel x={selectedCell.x} y={selectedCell.y} />
+        ) : (
+          <div className="rounded border bg-white p-4 text-sm shadow">
+            Cliquez sur une case pour afficher les Q-values
+          </div>
+        )}
+      </div>
     </div>
   );
 };
