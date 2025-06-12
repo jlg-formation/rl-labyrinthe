@@ -1,5 +1,6 @@
 import { useMazeStore } from "../store/useMazeStore";
-import React from "react";
+import { QValuePopup } from "./QValuePopup";
+import React, { useState } from "react";
 
 const cellColors: Record<string, string> = {
   wall: "#1f2937", // gris foncé
@@ -8,16 +9,20 @@ const cellColors: Record<string, string> = {
   goal: "#ef4444", // rouge
 };
 
-const CELL_SIZE = 20; // pixels (modifiable pour affichage)
+const CELL_SIZE = 20; // pixels (modifiable)
 
 export const Maze: React.FC = () => {
   const { maze, agentPos } = useMazeStore();
+  const [selectedCell, setSelectedCell] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
 
   const width = maze[0]?.length ?? 0;
   const height = maze.length;
 
   return (
-    <div className="overflow-auto border border-gray-300 rounded shadow p-2 bg-white">
+    <div className="relative overflow-auto border border-gray-300 rounded shadow p-2 bg-white">
       <svg
         width={width * CELL_SIZE}
         height={height * CELL_SIZE}
@@ -36,11 +41,30 @@ export const Maze: React.FC = () => {
                 fill={isAgent ? "#3b82f6" : cellColors[cell]}
                 stroke="#ccc"
                 strokeWidth={1}
+                onClick={() => setSelectedCell({ x, y })}
+                className="cursor-pointer"
               />
             );
           })
         )}
       </svg>
+
+      {/* Popup des Q-values */}
+      {selectedCell && (
+        <div
+          className="absolute"
+          style={{
+            left: selectedCell.x * CELL_SIZE,
+            top: selectedCell.y * CELL_SIZE,
+          }}
+        >
+          <QValuePopup
+            x={selectedCell.x}
+            y={selectedCell.y}
+            onClose={() => setSelectedCell(null)}
+          />
+        </div>
+      )}
     </div>
   );
 };
