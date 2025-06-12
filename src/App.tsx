@@ -1,22 +1,24 @@
-import "./App.css";
-import { Controls } from "./components/Controls";
-import { Maze } from "./components/Maze";
-import { useMazeStore } from "./store/useMazeStore";
-import { generateMaze } from "./utils/mazeGenerator";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/Home";
+import Doc from "./pages/Doc";
 
-const maze = generateMaze(15, 15);
-useMazeStore.getState().setMaze(maze);
-
-function App() {
+export default function App() {
   return (
-    <div className="p-4 max-w-screen-sm mx-auto">
-      <h1 className="text-xl font-bold text-center mb-4">
-        Agent Q-Learning dans un Labyrinthe
-      </h1>
-      <Controls />
-      <Maze />
-    </div>
+    <Router basename={import.meta.env.BASE_URL}>
+      <nav className="bg-white shadow p-4 flex gap-4 text-blue-700 font-medium">
+        <Link to="/" className="hover:underline">
+          Accueil
+        </Link>
+        <Link to="/doc" className="hover:underline">
+          Documentation
+        </Link>
+      </nav>
+      <main className="min-h-screen bg-gray-50">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/doc" element={<Doc />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
-
-export default App;
