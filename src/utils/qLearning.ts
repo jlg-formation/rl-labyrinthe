@@ -44,6 +44,7 @@ export function doQLearningStep() {
     isLearning,
     toggleLearning,
     stopAtGoal,
+    incrementEpisode,
   } = useMazeStore.getState();
 
   const state = agentPos;
@@ -89,6 +90,7 @@ export function doQLearningStep() {
     isLearning
   ) {
     toggleLearning();
+    incrementEpisode();
     console.log("🎯 Sortie atteinte, apprentissage arrêté.");
   }
 }

@@ -28,6 +28,10 @@ interface MazeStore {
 
   stopAtGoal: boolean;
   setStopAtGoal: (val: boolean) => void;
+
+  episodeCount: number;
+  incrementEpisode: () => void;
+  resetEpisode: () => void;
 }
 
 export const useMazeStore = create<MazeStore>((set, get) => ({
@@ -60,4 +64,8 @@ export const useMazeStore = create<MazeStore>((set, get) => ({
 
   stopAtGoal: true,
   setStopAtGoal: (val) => set({ stopAtGoal: val }),
+
+  episodeCount: 0,
+  incrementEpisode: () => set((s) => ({ episodeCount: s.episodeCount + 1 })),
+  resetEpisode: () => set({ episodeCount: 0 }),
 }));

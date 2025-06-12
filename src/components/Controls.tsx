@@ -13,6 +13,8 @@ export const Controls: React.FC = () => {
     setGoalPos,
   } = useMazeStore();
 
+  const { episodeCount } = useMazeStore();
+
   const { stopAtGoal, setStopAtGoal } = useMazeStore();
 
   const handleReset = () => {
@@ -56,6 +58,10 @@ export const Controls: React.FC = () => {
       >
         🔄 Nouveau labyrinthe
       </button>
+      <div className="text-sm text-gray-600 text-center mt-2">
+        Épisodes terminés :{" "}
+        <span className="font-semibold">{episodeCount}</span>
+      </div>
 
       <div className="flex items-center gap-2 mt-4 text-sm">
         <input
