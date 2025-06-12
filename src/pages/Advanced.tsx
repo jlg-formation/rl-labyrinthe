@@ -118,13 +118,13 @@ export default function Advanced() {
         <div className="mt-6 flex gap-4">
           <button
             onClick={handleApply}
-            className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 cursor-pointer"
           >
             ✅ Appliquer
           </button>
           <button
             onClick={handleReset}
-            className="rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-700"
+            className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 cursor-pointer"
           >
             🔄 Réinitialiser
           </button>

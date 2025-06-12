@@ -81,7 +81,7 @@ export const QValuePopup: React.FC<Props> = ({ x, y, onClose }) => {
 
       <button
         onClick={onClose}
-        className="mt-3 text-xs text-red-500 hover:underline"
+        className="mt-3 text-xs text-red-500 hover:underline cursor-pointer"
       >
         Fermer
       </button>
