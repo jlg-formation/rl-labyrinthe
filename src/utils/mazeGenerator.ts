@@ -1,3 +1,5 @@
+import { useAdvancedSettings } from "../store/useAdvancedSettings";
+
 type CellType = "wall" | "empty" | "start" | "goal";
 type Maze = CellType[][];
 
@@ -18,9 +20,10 @@ function shuffle<T>(arr: T[]): T[] {
  * de taille `width` x `height` (valeurs impaires recommandées)
  */
 export function generateMaze(width: number, height: number): Maze {
-  // Initialiser tout en mur
-  const maze: Maze = Array.from({ length: height }, () =>
-    Array.from({ length: width }, () => "wall")
+  const size = useAdvancedSettings.getState().mazeSize;
+
+  const maze: CellType[][] = Array.from({ length: size }, () =>
+    Array.from({ length: size }, () => "wall")
   );
 
   // Point de départ (coordonnées impaires)

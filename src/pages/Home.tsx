@@ -1,18 +1,20 @@
 import { useEffect, useRef } from "react";
-import { Maze } from "../components/Maze";
 import { Controls } from "../components/Controls";
+import { Maze } from "../components/Maze";
+import { useAdvancedSettings } from "../store/useAdvancedSettings";
 import { useMazeStore } from "../store/useMazeStore";
 import { doQLearningStep } from "../utils/qLearning";
 
 export default function Home() {
   const { isLearning } = useMazeStore();
   const intervalRef = useRef<number | null>(null);
+  const { stepDelayMs } = useAdvancedSettings();
 
   useEffect(() => {
     if (isLearning) {
       intervalRef.current = window.setInterval(() => {
         doQLearningStep();
-      }, 50); // délai entre deux pas (réglable)
+      }, stepDelayMs);
     } else {
       if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
@@ -25,7 +27,7 @@ export default function Home() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [isLearning]);
+  }, [isLearning, stepDelayMs]);
 
   return (
     <div className="p-4 max-w-screen-sm mx-auto">

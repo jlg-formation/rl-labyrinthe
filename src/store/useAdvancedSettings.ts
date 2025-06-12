@@ -46,6 +46,7 @@ export const useAdvancedSettings = create<AdvancedSettings>((set, get) => {
         const parsed = JSON.parse(raw);
         set({ ...DEFAULTS, ...parsed });
       } catch (e) {
+        console.log("e: ", e);
         set(DEFAULTS);
       }
     } else {

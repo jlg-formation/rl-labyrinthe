@@ -1,4 +1,5 @@
 import { useMazeStore } from "../store/useMazeStore";
+import { useAdvancedSettings } from "../store/useAdvancedSettings";
 
 type Direction = "up" | "down" | "left" | "right";
 type Position = { x: number; y: number };
@@ -9,10 +10,6 @@ const directions: Record<Direction, [number, number]> = {
   left: [-1, 0],
   right: [1, 0],
 };
-
-const alpha = 0.1; // learning rate
-const gamma = 0.95; // discount factor
-let epsilon = 0.2; // exploration factor
 
 function isValidMove(maze: string[][], x: number, y: number): boolean {
   return (
@@ -25,9 +22,10 @@ function isValidMove(maze: string[][], x: number, y: number): boolean {
 }
 
 function getReward(cell: string): number {
-  if (cell === "goal") return 100;
-  if (cell === "wall") return -10;
-  return -1;
+  const { rewardGoal, rewardWall, rewardStep } = useAdvancedSettings.getState();
+  if (cell === "goal") return rewardGoal;
+  if (cell === "wall") return rewardWall;
+  return rewardStep;
 }
 
 /**
@@ -46,6 +44,8 @@ export function doQLearningStep() {
     stopAtGoal,
     incrementEpisode,
   } = useMazeStore.getState();
+
+  const { alpha, gamma, epsilon } = useAdvancedSettings.getState();
 
   const state = agentPos;
   const actions: Direction[] = ["up", "down", "left", "right"];
@@ -74,13 +74,14 @@ export function doQLearningStep() {
   const maxNextQ = Math.max(...actions.map((a) => getQValue(nextState, a)));
   const oldQ = getQValue(state, action);
   const newQ = oldQ + alpha * (reward + gamma * maxNextQ - oldQ);
+
   setQValue(state, action, newQ);
 
   // 3. Mise à jour de l’état si déplacement valide
   if (valid) setAgentPos(nextPos);
 
   // 4. Réduction progressive de epsilon (exploration diminue)
-  epsilon = Math.max(0.01, epsilon * 0.995);
+  // epsilon = Math.max(0.01, epsilon * 0.995);
 
   if (valid && nextPos.x === goalPos.x && nextPos.y === goalPos.y) {
     incrementEpisode();
