@@ -1,5 +1,10 @@
 # Contributor Guide
 
+## Comprendre la finalité du site web
+
+Read the document `./SPECIFICATIONS.md` to understand the objectives of the
+website and keep it in mind.
+
 ## Commit message
 
 - use conventional commit.
