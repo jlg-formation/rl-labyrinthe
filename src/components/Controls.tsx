@@ -11,6 +11,7 @@ export const Controls: React.FC = () => {
     size,
     setAgentPos,
     setGoalPos,
+    setStartPos,
   } = useMazeStore();
 
   const { episodeCount } = useMazeStore();
@@ -24,7 +25,10 @@ export const Controls: React.FC = () => {
     // Recherche des positions start et goal dans la grille
     for (let y = 0; y < newMaze.length; y++) {
       for (let x = 0; x < newMaze[y].length; x++) {
-        if (newMaze[y][x] === "start") setAgentPos({ x, y });
+        if (newMaze[y][x] === "start") {
+          setAgentPos({ x, y });
+          setStartPos({ x, y }); // <-- mémorise la position de départ
+        }
         if (newMaze[y][x] === "goal") setGoalPos({ x, y });
       }
     }

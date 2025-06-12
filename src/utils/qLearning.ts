@@ -82,15 +82,15 @@ export function doQLearningStep() {
   // 4. Réduction progressive de epsilon (exploration diminue)
   epsilon = Math.max(0.01, epsilon * 0.995);
 
-  if (
-    valid &&
-    stopAtGoal &&
-    nextPos.x === goalPos.x &&
-    nextPos.y === goalPos.y &&
-    isLearning
-  ) {
-    toggleLearning();
+  if (valid && nextPos.x === goalPos.x && nextPos.y === goalPos.y) {
     incrementEpisode();
-    console.log("🎯 Sortie atteinte, apprentissage arrêté.");
+
+    if (stopAtGoal && isLearning) {
+      toggleLearning();
+      console.log("🎯 Sortie atteinte, apprentissage arrêté.");
+    } else {
+      // Continue l'apprentissage : recommence depuis le départ
+      useMazeStore.getState().resetAgentPos();
+    }
   }
 }

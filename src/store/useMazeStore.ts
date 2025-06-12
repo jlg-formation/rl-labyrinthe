@@ -32,11 +32,15 @@ interface MazeStore {
   episodeCount: number;
   incrementEpisode: () => void;
   resetEpisode: () => void;
+
+  resetAgentPos: () => void;
+  startPos: Position;
+  setStartPos: (pos: Position) => void;
 }
 
 export const useMazeStore = create<MazeStore>((set, get) => ({
   maze: [],
-  size: 10,
+  size: 15,
   agentPos: { x: 0, y: 0 },
   goalPos: { x: 9, y: 9 },
   qTable: {},
@@ -68,4 +72,11 @@ export const useMazeStore = create<MazeStore>((set, get) => ({
   episodeCount: 0,
   incrementEpisode: () => set((s) => ({ episodeCount: s.episodeCount + 1 })),
   resetEpisode: () => set({ episodeCount: 0 }),
+
+  startPos: { x: 0, y: 0 },
+  setStartPos: (pos) => set({ startPos: pos }),
+  resetAgentPos: () => {
+    const { startPos, setAgentPos } = get();
+    setAgentPos(startPos);
+  },
 }));

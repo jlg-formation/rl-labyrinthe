@@ -7,6 +7,12 @@ type Props = {
   onClose: () => void;
 };
 
+const getColorForValue = (v: number) => {
+  if (v > 50) return "bg-green-500 text-white";
+  if (v > 0) return "bg-yellow-400 text-black";
+  return "bg-red-500 text-white";
+};
+
 export const QValuePopup: React.FC<Props> = ({ x, y, onClose }) => {
   const { getQValue } = useMazeStore();
   const [values, setValues] = useState({
@@ -25,31 +31,54 @@ export const QValuePopup: React.FC<Props> = ({ x, y, onClose }) => {
     });
   }, [x, y, getQValue]);
 
+  const bestDir = Object.entries(values).reduce(
+    (best, [dir, val]) =>
+      val > values[best as keyof typeof values]
+        ? (dir as keyof typeof values)
+        : best,
+    "up" as keyof typeof values
+  );
+
+  const arrowSymbols: Record<keyof typeof values, string> = {
+    up: "↑",
+    down: "↓",
+    left: "←",
+    right: "→",
+  };
+
   return (
-    <div className="absolute z-50 bg-white border shadow-lg rounded p-4 text-sm">
+    <div className="absolute z-50 bg-white border shadow-lg rounded p-4 text-sm min-w-[120px]">
       <h2 className="font-semibold mb-2">
         Q-values ({x}, {y})
       </h2>
-      <div className="grid grid-cols-3 gap-1 text-center">
+      <div className="grid grid-cols-3 gap-1 text-center text-xs">
         <div></div>
-        <div className="text-blue-600">↑</div>
+        <div className={`rounded p-1 ${getColorForValue(values.up)}`}>
+          ↑<br />
+          {values.up.toFixed(2)}
+        </div>
         <div></div>
-        <div className="text-blue-600">←</div>
-        <div>{values.up.toFixed(2)}</div>
-        <div className="text-blue-600">→</div>
+
+        <div className={`rounded p-1 ${getColorForValue(values.left)}`}>
+          ←<br />
+          {values.left.toFixed(2)}
+        </div>
+        <div className="flex items-center justify-center font-bold text-blue-600">
+          {arrowSymbols[bestDir]}
+        </div>
+        <div className={`rounded p-1 ${getColorForValue(values.right)}`}>
+          →<br />
+          {values.right.toFixed(2)}
+        </div>
+
         <div></div>
-        <div className="text-blue-600">↓</div>
+        <div className={`rounded p-1 ${getColorForValue(values.down)}`}>
+          ↓<br />
+          {values.down.toFixed(2)}
+        </div>
         <div></div>
       </div>
-      <div className="grid grid-cols-2 mt-2 gap-2">
-        <div className="text-xs text-gray-500 text-left">
-          L: {values.left.toFixed(2)} <br />
-          R: {values.right.toFixed(2)}
-        </div>
-        <div className="text-xs text-gray-500 text-right">
-          D: {values.down.toFixed(2)}
-        </div>
-      </div>
+
       <button
         onClick={onClose}
         className="mt-3 text-xs text-red-500 hover:underline"
